@@ -1,0 +1,33 @@
+- name: install the foundation
+  hosts: all
+  become: yes
+  serial: 1
+  gather_facts: no
+  # override user password for privilege escalation.
+  # ansible already has a become password for localhost.
+  # this new host has a different become password.
+  # By the time the role is finished, user has passwordless sudo and this is no longer needed.
+  vars:
+    ansible_become_password: "{{ user_ansible_password }}"
+  roles:
+    - ansible-target
+# what other prereqs? 
+
+  tasks:
+
+  - name: check with ping
+    ping:
+
+  # make sure the new machine has been rebooted before upgrading all packages
+  # If kickstart failed to register with RHSM, this module does nothing.
+  - name: Upgrade all packages
+    ansible.builtin.dnf:
+      name: "*"
+      state: latest
+
+  - name: can the OS survive another reboot? 
+    ansible.builtin.reboot:
+  - name: can we ping the host after the reboot?
+    ansible.builtin.wait_for_connection:
+      timeout: 30
+
