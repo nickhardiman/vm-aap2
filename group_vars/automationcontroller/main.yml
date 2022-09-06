@@ -26,7 +26,7 @@ nics:
   net: public0
 
 # OS
-host: controller1
+host: control1
 
 # kickstart
 
