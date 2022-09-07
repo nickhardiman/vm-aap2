@@ -1,4 +1,4 @@
-#
+# incomplete
 - name: build the control node
   hosts: control1.lab.example.com
   become: yes
