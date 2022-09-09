@@ -24,10 +24,25 @@
     ansible.builtin.dnf:
       name: "*"
       state: latest
+    register: r_dnf
+
+  - debug:
+      var: r_dnf
 
   - name: can the OS survive another reboot? 
     ansible.builtin.reboot:
+    when: r_dnf['changed'] == true
+
   - name: can we ping the host after the reboot?
     ansible.builtin.wait_for_connection:
       timeout: 30
 
+
+# network manager
+  - name: use name1 for DNS
+    ansible.builtin.command:
+      cmd: "{{ item }}"
+    loop:
+      - nmcli con mod enp1s0 ipv4.dns 192.168.1.12
+      - nmcli con mod enp1s0 ipv4.ignore-auto-dns yes
+      - nmcli con up enp1s0

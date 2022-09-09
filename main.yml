@@ -8,3 +8,6 @@
 - name: install service
   ansible.builtin.import_playbook: build-service.yml
 
+- name: test
+  ansible.builtin.import_playbook: test-stack.yml
+

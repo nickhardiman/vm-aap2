@@ -19,6 +19,7 @@
       - ssh
       - http
       - https
+      - postgresql
 #
 # checks
 
@@ -73,3 +74,33 @@
 # checks
 
 # packages
+
+
+# install process
+# https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index
+# dnf install --enablerepo=ansible-automation-platform-2.2-for-rhel-9-x86_64-rpm ansible-automation-platform-installer
+# subscription-manager repos --enable ansible-automation-platform-2.2-for-rhel-9-x86_64-rpms
+# install from control1
+# control1
+# copy setup files to /opt/ansible-automation-platform/installer/
+# dnf install ansible-automation-platform-installer
+#
+# create root keys - ssh-keygen
+# copy id_rsa.pub to .ssh/authorized keys
+# hub1
+# execution1
+# root access to the other machines
+# copy id_rsa.pub to .ssh/authorized keys
+# control1
+# check access, auth, DNS
+# ssh control1.lab.example.com
+# ssh hub1.lab.example.com
+# ssh execution1.lab.example.com
+# cd /opt/ansible-automation-platform/installer/
+# copy inventory 
+# change registry_username and registry_password in inventory
+# check registry account - podman login registry.redhat.io
+# ./setup.sh
+# get a subscription manifest
+# https://access.redhat.com/documentation/en-us/reference_architectures/2021/html-single/deploying_ansible_automation_platform_2.1/index#sub_manifest
+#
