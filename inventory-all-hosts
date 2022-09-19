@@ -1,15 +1,30 @@
-# Remove other home lab hosts from this inventory.
-# One pulp task attempts to connect to all hosts.
-# See
-#   'Check if any hosts already have the database fields encryption key'
-# in
-#   collections/ansible_collections/pulp/pulp_installer/roles/pulp_database_config/tasks/main.yml
-#
 # !!! better to sort DHCP and DNS before the playbook runs.
 # otherwise 
 #   TASK [ansible-target : add group] ********************
 #   fatal: [antora1.lab.example.com]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname antora1.lab.example.com: Name or service not known", "unreachable": true}
 
+[dns]
+name1.lab.example.com
+
+[web_server]
+antora1.lab.example.com
+
+[provisioner]
+satellite1.lab.example.com
+capsule1.lab.example.com
+
+[hypervisor]
+host1 ansible_connection=local
+host2 ansible_connection=local
+host3 ansible_connection=local
+
+[scm]
+git1.lab.example.com
+
+[builder]
+builder1.lab.example.com
+
+# everything else is irrelevant to this playbook.
 
 [automationcontroller]
 control1.lab.example.com  node_type=control
@@ -61,8 +76,6 @@ receptor_listener_port=27199
 
 # Automation Hub
 # Certificate and key to install in Automation Hub node
-automationhub_admin_password='redhat'
-# setup expects to find these files on ansible controller, not on the managed node 'hub1'
 automationhub_ssl_cert='/etc/pki/tls/certs/hub1.lab.example.com.pem'
 automationhub_ssl_key='/etc/pki/tls/private/hub1.lab.example.com.key'
 # re-use controller's database service
@@ -85,5 +98,4 @@ automationhub_pg_sslmode='prefer'
 sso_console_admin_password='redhat'
 
 GALAXY_ENABLE_API_ACCESS_LOG=true
-
 

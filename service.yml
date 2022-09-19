@@ -6,12 +6,26 @@
 # 4. https://github.com/redhat-cop/controller_configuration
 # 5. https://github.com/redhat-cop/ah_configuration
 
-- name: build the control node
-  hosts: control1.lab.example.com
+- name: service builld
+  hosts: hub1.lab.example.com
   become: yes
   gather_facts: no
   tasks: 
 
+
+  # setup.sh wants hub cert and key on the controller
+  # !!! delete after install
+  - name: fetch cert from hub to controller /etc/pki/tls/certs/
+    ansible.builtin.fetch:
+      src: "/etc/pki/tls/certs/hub1.lab.example.com.pem"
+      dest: "/var/tmp/"
+      flat: yes
+
+  - name: fetch key from hub to controller 
+    ansible.builtin.fetch:
+      src: "/etc/pki/tls/private/hub1.lab.example.com.key"
+      dest: "/var/tmp/"
+      flat: yes
 
 # install process
 # https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index
