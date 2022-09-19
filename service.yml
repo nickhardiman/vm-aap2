@@ -1,4 +1,12 @@
 # incomplete
+# Probably a good idea to use these for install.
+# 1. https://github.com/redhat-cop/aap_utilities/tree/devel/roles/aap_setup_download
+# 2. https://github.com/redhat-cop/aap_utilities/tree/devel/roles/aap_setup_prepare
+# 3. https://github.com/redhat-cop/aap_utilities/tree/devel/roles/aap_setup_install
+# Then use these for config. 
+# 4. https://github.com/redhat-cop/controller_configuration
+# 5. https://github.com/redhat-cop/ah_configuration
+
 - name: build the control node
   hosts: control1.lab.example.com
   become: yes
