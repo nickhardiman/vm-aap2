@@ -1,4 +1,3 @@
-# incomplete
 # Probably a good idea to use these for install.
 # 1. https://github.com/redhat-cop/aap_utilities/tree/devel/roles/aap_setup_download
 # 2. https://github.com/redhat-cop/aap_utilities/tree/devel/roles/aap_setup_prepare
@@ -12,76 +11,6 @@
   become: yes
   gather_facts: no
   tasks: 
-
-# network manager
-
-# firewall
-# https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index#ref-access-control-requirements_planning
-  - name: permit traffic in default zone
-    ansible.posix.firewalld:
-      service: "{{ item }}"
-      immediate: yes
-      permanent: yes
-      state: enabled
-    loop:
-      - ssh
-      - http
-      - https
-      - postgresql
-#
-# checks
-
-# packages
-
-
-
-- name: build the execution node
-  hosts: execution1.lab.example.com
-  become: yes
-  gather_facts: no
-  tasks: 
-
-# network manager
-
-# firewall
-# https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index#ref-access-control-requirements_planning
-  - name: permit traffic in default zone
-    ansible.posix.firewalld:
-      port: 27199/tcp
-      immediate: yes
-      permanent: yes
-      state: enabled
-#
-# checks
-
-# packages
-
-
-
-- name: build the hub node
-  hosts: hub1.lab.example.com
-  become: yes
-  gather_facts: no
-  tasks: 
-
-# network manager
-
-# firewall
-# https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index#ref-access-control-requirements_planning
-  - name: permit traffic in default zone
-    ansible.posix.firewalld:
-      service: "{{ item }}"
-      immediate: yes
-      permanent: yes
-      state: enabled
-    loop:
-      - ssh
-      - http
-      - https
-#
-# checks
-
-# packages
 
 
 # install process

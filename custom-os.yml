@@ -11,7 +11,7 @@
     ansible_become_password: "{{ user_ansible_password }}"
   roles:
     - ansible-target
-# what other prereqs? 
+  # what other prereqs? 
 
   tasks:
 
@@ -37,8 +37,7 @@
     ansible.builtin.wait_for_connection:
       timeout: 30
 
-
-# network manager
+  # network manager
   - name: use name1 for DNS
     ansible.builtin.command:
       cmd: "{{ item }}"
@@ -48,17 +47,16 @@
       - nmcli con up enp1s0
 
 
-
 - name: build the control node
   hosts: control1.lab.example.com
   become: yes
   gather_facts: no
   tasks: 
 
-# network manager
+  # network manager
 
-# firewall
-# https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index#ref-access-control-requirements_planning
+  # firewall
+  # https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index#ref-access-control-requirements_planning
   - name: permit traffic in default zone
     ansible.posix.firewalld:
       service: "{{ item }}"
@@ -70,11 +68,8 @@
       - http
       - https
       - postgresql
-#
-# checks
 
-# packages
-
+  # packages
 
 
 - name: build the execution node
@@ -83,21 +78,18 @@
   gather_facts: no
   tasks: 
 
-# network manager
+  # network manager
 
-# firewall
-# https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index#ref-access-control-requirements_planning
+  # firewall
+  # https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index#ref-access-control-requirements_planning
   - name: permit traffic in default zone
     ansible.posix.firewalld:
       port: 27199/tcp
       immediate: yes
       permanent: yes
       state: enabled
-#
-# checks
 
-# packages
-
+  # packages
 
 
 - name: build the hub node
@@ -106,10 +98,10 @@
   gather_facts: no
   tasks: 
 
-# network manager
+  # network manager
 
-# firewall
-# https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index#ref-access-control-requirements_planning
+  # firewall
+  # https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html-single/red_hat_ansible_automation_platform_installation_guide/index#ref-access-control-requirements_planning
   - name: permit traffic in default zone
     ansible.posix.firewalld:
       service: "{{ item }}"
@@ -120,9 +112,10 @@
       - ssh
       - http
       - https
-#
-# checks
 
-# packages
+  # packages
 
+
+- name: create a server certificate
+  ansible.builtin.import_playbook: cert-server.yml
 
